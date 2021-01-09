@@ -9,6 +9,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "AbilitySystemComponent.h"
+#include "CharacterBaseAttributeSet.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ASimpleGASCharacter
@@ -47,6 +48,8 @@ ASimpleGASCharacter::ASimpleGASCharacter()
 
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
 
+	BaseAttributeSet = CreateDefaultSubobject<UCharacterBaseAttributeSet>(TEXT("AttributeSet"));
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -81,16 +84,25 @@ void ASimpleGASCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 }
 
 
+void ASimpleGASCharacter::OnHealthAttributeChanged(const FOnAttributeChangeData& Data)
+{
+
+}
+
 void ASimpleGASCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if ( AbilitySystemComponent && HasAuthority() )
+	if (AbilitySystemComponent)
 	{
-		if ( StartupAbility )
+		FGameplayAbilityActorInfo* actorInfo = new FGameplayAbilityActorInfo();
+		actorInfo->InitFromActor(this, this, AbilitySystemComponent);
+		AbilitySystemComponent->AbilityActorInfo = TSharedPtr<FGameplayAbilityActorInfo>(actorInfo);
+
+		if (StartupAbility && HasAuthority())
 		{
-			AbilitySystemComponent->GiveAbility( FGameplayAbilitySpec(StartupAbility.GetDefaultObject(), 1, 0) );
-			AbilitySystemComponent->InitAbilityActorInfo( this, this );
+			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(StartupAbility.GetDefaultObject(), 1, 0));
+			AbilitySystemComponent->InitAbilityActorInfo(this, this);
 		}
 	}
 }

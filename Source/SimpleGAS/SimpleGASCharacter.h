@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "GameplayEffect.h"
 #include "SimpleGASCharacter.generated.h"
 
 UCLASS(config=Game)
@@ -24,6 +25,10 @@ class ASimpleGASCharacter : public ACharacter, public IAbilitySystemInterface
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities, meta = (AllowPrivateAccess = "true"))
 	class UAbilitySystemComponent* AbilitySystemComponent;
 
+	/** Base Set Of Attributes */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Abilities, meta = (AllowPrivateAccess = "true"))
+	class UCharacterBaseAttributeSet* BaseAttributeSet;
+
 public:
 	ASimpleGASCharacter();
 
@@ -40,6 +45,8 @@ public:
 	float BaseLookUpRate;
 
 protected:
+
+	virtual void OnHealthAttributeChanged(const FOnAttributeChangeData& Data);
 
 	void BeginPlay() override;
 
