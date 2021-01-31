@@ -34,7 +34,7 @@ public:
 
 	/** Startup Abilities to Grant on BeginPlay */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Abilities)
-	TSubclassOf<class UGameplayAbility> StartupAbility;
+	TArray<TSubclassOf<class UGameplayAbility>> StartupAbilities;
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)

@@ -86,7 +86,9 @@ void ASimpleGASCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 
 void ASimpleGASCharacter::OnHealthAttributeChanged(const FOnAttributeChangeData& Data)
 {
+	float Health = Data.NewValue;
 
+	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);
 }
 
 void ASimpleGASCharacter::BeginPlay()
@@ -99,11 +101,16 @@ void ASimpleGASCharacter::BeginPlay()
 		actorInfo->InitFromActor(this, this, AbilitySystemComponent);
 		AbilitySystemComponent->AbilityActorInfo = TSharedPtr<FGameplayAbilityActorInfo>(actorInfo);
 
-		if (StartupAbility && HasAuthority())
+		for(const auto& StartupAbility : StartupAbilities)
 		{
-			AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(StartupAbility.GetDefaultObject(), 1, 0));
-			AbilitySystemComponent->InitAbilityActorInfo(this, this);
+			if (StartupAbility && HasAuthority())
+			{
+				AbilitySystemComponent->GiveAbility(FGameplayAbilitySpec(StartupAbility.GetDefaultObject(), 1, 0));
+				AbilitySystemComponent->InitAbilityActorInfo(this, this);
+			}
 		}
+
+		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(BaseAttributeSet->GetHealthAttribute()).AddUObject(this, &ASimpleGASCharacter::OnHealthAttributeChanged);
 	}
 }
 
