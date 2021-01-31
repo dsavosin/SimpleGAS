@@ -87,7 +87,6 @@ void ASimpleGASCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 void ASimpleGASCharacter::OnHealthAttributeChanged(const FOnAttributeChangeData& Data)
 {
 	float Health = Data.NewValue;
-
 	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);
 }
 
