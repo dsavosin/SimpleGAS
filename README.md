@@ -8,5 +8,6 @@ A SimpleGAS is a set of tutorials for entry-level Unreal Engine enthusiasts who 
 - Contains basic network-replicated projectile.
 
 Tutorials:
+
 https://denismakes.games/2020/10/17/launching-grenades-in-unreal-with-gameplay-ability-system-part-1/
 https://denismakes.games/2021/02/27/launching-grenades-in-unreal-part-2-attributes-gameplay-effects-replication/
