@@ -6,8 +6,3 @@ A SimpleGAS is a set of tutorials for entry-level Unreal Engine enthusiasts who 
 - Minimal required C++ setup, all abilities and GEs are built in blueprints.
 - Learn to apply GameplayEffect with direct attribute alterations, or via GameplayEffect Spec tag magnitudes.
 - Contains basic network-replicated projectile.
-
-Tutorials:
-
-https://denismakes.games/2020/10/17/launching-grenades-in-unreal-with-gameplay-ability-system-part-1/
-https://denismakes.games/2021/02/27/launching-grenades-in-unreal-part-2-attributes-gameplay-effects-replication/
